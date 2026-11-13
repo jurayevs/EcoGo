@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoPrioritet</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#f3f7f4;color:#20312a;
+ font-family:Arial,sans-serif;line-height:1.5
+}
+header{
+ background:linear-gradient(120deg,#123d35,#1c7655);
+ color:white;padding:28px 18px
+}
+.wrap{max-width:950px;margin:auto;padding:0 15px}
+h1{font-size:36px;margin:5px 0}
+h2{color:#164b3b;margin:0 0 5px}
+.panel{
+ background:white;border:1px solid #dce7e0;
+ border-radius:16px;padding:20px;margin:18px 0
+}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;font-weight:bold;font-size:14px;margin-bottom:5px}
+input,select,textarea{
+ width:100%;padding:12px;border:1px solid #cbd9d1;
+ border-radius:9px;font:inherit
+}
+textarea{min-height:85px}
+.full{grid-column:1/-1}
+.btn{
+ border:0;border-radius:9px;background:#176b52;
+ color:white;padding:12px 16px;font-weight:bold;
+ text-decoration:none;display:inline-block;cursor:pointer
+}
+.light{background:#eaf4ee;color:#164b3b}
+.red{background:#fff0ee;color:#a52319}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.result{
+ display:none;background:#f8fbf9;border:1px solid #dce7e0;
+ padding:16px;border-radius:12px;margin-top:16px
+}
+.score{font-size:38px;font-weight:bold}
+.high{color:#b42318}.mid{color:#a15c00}.low{color:#176b52}
+.call{
+ background:#e8f5ee;border:1px solid #cce5d5;
+ padding:15px;border-radius:12px;margin-top:15px
+}
+.phone{font-size:30px;font-weight:bold;color:#123d35}
+.notice{
+ background:#fff8e8;border:1px solid #f0dfb6;
+ padding:12px;border-radius:9px;font-size:13px;margin-top:12px
+}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{
+ flex:1;min-width:110px;background:#f6faf7;
+ padding:13px;border:1px solid #dce7e0;border-radius:10px
+}
+.stat b{font-size:25px;display:block;color:#164b3b}
+.item{border:1px solid #dce7e0;border-radius:10px;padding:12px;margin-top:10px}
+.hidden{display:none}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}
+nav button{
+ border:1px solid #ffffff66;background:#ffffff18;
+ color:white;padding:9px 13px;border-radius:22px;cursor:pointer
+}
+nav button.active{background:white;color:#123d35}
+.small{color:#687970;font-size:13px}
+@media(max-width:620px){
+ .grid{grid-template-columns:1fr}
+ .full{grid-column:auto}
+ .panel{padding:15px}
+ h1{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="wrap">
+<div style="letter-spacing:2px;font-size:12px">
+EKOLOGIK XAVFSIZLIK PLATFORMASI
+</div>
+<h1>EcoPrioritet</h1>
+<div>
+Ekologik muammolarni baholash va mas’ul tashkilotga
+murojaat qilishga yordam beruvchi loyiha.
+</div>
+<nav>
+<button class="active" data-tab="assess">Xavfni baholash</button>
+<button data-tab="registry">Murojaatlar ro‘yxati</button>
+<button data-tab="about">Loyiha haqida</button>
+</nav>
+</div>
+</header>
+
+<main class="wrap">
+
+<section id="assess">
+<div class="panel">
+<h2>Ekologik holatni kiriting</h2>
+<p class="small">Ma’lumotlarni kiriting va dastlabki xavf bahosini oling.</p>
+
+<form id="form" class="grid">
+
+<div>
+<label>Muammo turi</label>
+<select id="type" required>
+<option value="">Tanlang</option>
+<option>Havo ifloslanishi</option>
+<option>Suv ifloslanishi</option>
+<option>Tuproq ifloslanishi</option>
+<option>Chiqindilar to‘planishi</option>
+<option>Daraxtlarning noqonuniy kesilishi</option>
+<option>Boshqa ekologik muammo</option>
+</select>
+</div>
+
+<div>
+<label>Manzil</label>
+<input id="place" placeholder="Viloyat, tuman, joy" required>
+</div>
+
+<div>
+<label>Ta’sirlanishi mumkin bo‘lgan aholi soni</label>
+<input id="people" type="number" min="0" required placeholder="Taxminiy son">
+</div>
+
+<div>
+<label>Muammoning darajasi</label>
+<select id="severity">
+<option value="1">Past</option>
+<option value="2">O‘rtacha</option>
+<option value="3">Yuqori</option>
+<option value="4">Juda yuqori</option>
+</select>
+</div>
+
+<div>
+<label>Davomiyligi</label>
+<select id="duration">
+<option value="1">Bir kundan kam</option>
+<option value="2">1–7 kun</option>
+<option value="3">1–4 hafta</option>
+<option value="4">Bir oydan ortiq</option>
+</select>
+</div>
+
+<div>
+<label>Bolalar yoki keksalar ta’sirlanishi mumkinmi?</label>
+<select id="vulnerable">
+<option value="0">Aniq emas / yo‘q</option>
+<option value="2">Ha</option>
+</select>
+</div>
+
+<div class="full">
+<label>Qo‘shimcha ma’lumot</label>
+<textarea id="details" placeholder="Nima sodir bo‘ldi? Qachon va qayerda kuzatildi?"></textarea>
+</div>
+
+<div class="full">
+<label style="font-weight:normal">
+<input id="confirm" type="checkbox" required style="width:auto">
+Kiritgan ma’lumotlarim imkon qadar to‘g‘ri ekanini tasdiqlayman.
+</label>
+</div>
+
+<div class="full">
+<button class="btn">Xavfni baholash</button>
+</div>
+</form>
+
+<div id="result" class="result">
+<div class="small">BAHOLASH NATIJASI</div>
+<div id="score" class="score">0/20</div>
+<h3 id="level"></h3>
+<p id="advice"></p>
+
+<div style="height:9px;background:#e6eee8;border-radius:20px;overflow:hidden">
+<div id="bar" style="height:100%;width:0;background:#176b52"></div>
+</div>
+
+<div class="notice">
+Bu ball prototipdagi soddalashtirilgan mezonlar asosida
+hisoblanadi. U laboratoriya o‘lchovi yoki davlat organining
+rasmiy xavf bahosi emas.
+</div>
+
+<div class="call">
+<b>Ushbu ekologik holat haqida mas’ul tashkilotga xabar berasizmi?</b>
+
+<p>Ekologiya va iqlim o‘zgarishi milliy qo‘mitasining ishonch telefoni:</p>
+
+<div class="phone">1157</div>
+
+<p class="small">
+Ekologik qonunbuzarliklar, havo va suv ifloslanishi,
+chiqindilar hamda daraxt kesilishi bo‘yicha murojaat qilish mumkin.
+</p>
+
+<div class="actions">
+<a class="btn" href="tel:1157">1157 ga qo‘ng‘iroq</a>
+<a class="btn light" href="https://gov.uz/oz/eco/feedback" target="_blank" rel="noopener">Rasmiy murojaat</a>
+<a class="btn light" href="https://t.me/ecogovuz_bot" target="_blank" rel="noopener">Telegram bot</a>
+</div>
+
+<div class="actions">
+<button type="button" class="btn" id="copy">Murojaat matnini nusxalash</button>
+<button type="button" class="btn light" id="save">Ro‘yxatga saqlash</button>
+</div>
+
+<p class="small">
+Sayt xabarni avtomatik yubormaydi. Qo‘ng‘iroq yoki rasmiy
+murojaatni foydalanuvchi o‘zi amalga oshiradi.
+</p>
+</div>
+</div>
+</div>
+
+<div class="panel">
+<h2>Statistika</h2>
+<div class="stats">
+<div class="stat"><b id="total">0</b><span class="small">Jami qaydlar</span></div>
+<div class="stat"><b id="high">0</b><span class="small">Yuqori xavfli</span></div>
+<div class="stat"><b id="closed">0</b><span class="small">Hal qilingan</span></div>
+</div>
+</div>
+</section>
+
+<section id="registry" class="hidden">
+<div class="panel">
+<h2>Murojaatlar ro‘yxati</h2>
+<p class="small">Yozuvlar ushbu brauzer qurilmasida saqlanadi.</p>
+<div class="actions">
+<button class="btn light" id="export">CSV yuklab olish</button>
+<button class="btn red" id="clear">Ro‘yxatni tozalash</button>
+</div>
+<div id="list"></div>
+</div>
+</section>
+
+<section id="about" class="hidden">
+<div class="panel">
+<h2>Loyiha haqida</h2>
+<p>
+EcoPrioritet ekologik muammolarni dastlabki baholash,
+ustuvorligini ko‘rsatish va fuqaroni rasmiy murojaat
+kanaliga yo‘naltirish uchun ishlab chiqilgan o‘quv prototipidir.
+</p>
+<ul>
+<li>Xavf darajasini taxminiy hisoblash.</li>
+<li>1157 ishonch telefoniga tezkor qo‘ng‘iroq qilish.</li>
+<li>Rasmiy murojaat sahifasi va Telegram botga o‘tish.</li>
+<li>Murojaat matnini tayyorlash va nusxalash.</li>
+<li>Qaydlarni saqlash, holatini yangilash va CSV eksport qilish.</li>
+</ul>
+<div class="notice">
+<b>Texnik cheklov:</b> haqiqiy onlayn xabar yuborish uchun
+himoyalangan server, ma’lumotlar bazasi va mas’ul tashkilot
+bilan kelishilgan integratsiya zarur. Hozirgi versiya
+murojaatni tashkilotga yubormaydi.
+</div>
+</div>
+</section>
+</main>
+
+<footer style="text-align:center;color:#687970;font-size:12px;padding:18px">
+EcoPrioritet • O‘quv prototipi • Rasmiy davlat xizmati emas
+</footer>
+
+<script>
+const $=x=>document.getElementById(x);
+const KEY='ecoPrioritetV3';
+let rows=JSON.parse(localStorage.getItem(KEY)||'[]');
+let current=null;
+
+function report(x){
+return `EKOLOGIK MUAMMO BO‘YICHA MUROJAAT
+Muammo: ${x.type}
+Manzil: ${x.place}
+Ta’sirlanishi mumkin bo‘lgan aholi: ${x.people}
+Dastur bahosi: ${x.score}/20 (${x.level})
+Qo‘shimcha ma’lumot: ${x.details||'Kiritilmagan'}
+Iltimos, holatni o‘rganib chiqishingizni so‘rayman.`;
+}
+
+function stats(){
+$('total').textContent=rows.length;
+$('high').textContent=rows.filter(x=>x.level==='Yuqori xavf').length;
+$('closed').textContent=rows.filter(x=>x.status==='Hal qilindi').length;
+list();
+}
+
+$('form').onsubmit=e=>{
+e.preventDefault();
+
+let x={
+type:$('type').value,
+place:$('place').value.trim(),
+people:+$('people').value,
+severity:+$('severity').value,
+duration:+$('duration').value,
+vulnerable:+$('vulnerable').value,
+details:$('details').value.trim()
+};
+
+let pop=x.people===0?0:
+x.people<50?1:
+x.people<500?2:
+x.people<5000?3:4;
+
+x.score=Math.min(20,Math.round(
+x.severity*3+pop+x.duration*1.5+x.vulnerable*2
+));
+
+x.level=x.score>=14?'Yuqori xavf':
+x.score>=8?'O‘rta xavf':'Nisbatan past xavf';
+
+x.status='Yangi';
+x.date=new Date().toLocaleString('uz-UZ');
+current=x;
+
+$('score').textContent=x.score+'/20';
+$('level').textContent=x.level;
+$('level').className=x.score>=14?'high':
+x.score>=8?'mid':'low';
+
+$('bar').style.width=(x.score/20*100)+'%';
+$('bar').style.background=x.score>=14?'#b42318':
+x.score>=8?'#c58a1a':'#176b52';
+
+$('advice').textContent=x.score>=14?
+'Muammoni kechiktirmasdan mas’ul tashkilotga yetkazish tavsiya etiladi.':
+x.score>=8?
+'Holatni kuzating va zarur bo‘lsa mas’ul tashkilotga murojaat qiling.':
+'Holatni kuzatib boring; muammo kuchaysa qayta baholang.';
+
+$('result').style.display='block';
+$('result').scrollIntoView({behavior:'smooth'});
+};
+
+$('copy').onclick=async()=>{
+if(!current)return;
+let t=report(current);
+try{
+await navigator.clipboard.writeText(t);
+$('copy').textContent='Nusxalandi ✓';
+}catch(e){
+prompt('Matnni nusxalang:',t);
+}
+};
+
+$('save').onclick=()=>{
+if(!current)return;
+rows.unshift({...current,id:Date.now()});
+localStorage.setItem(KEY,JSON.stringify(rows));
+stats();
+$('save').textContent='Saqlandi ✓';
+};
+
+function safe(s){
+return String(s||'').replace(/[&<>"']/g,c=>({
+'&':'&amp;','<':'&lt;','>':'&gt;',
+'"':'&quot;',"'":'&#39;'
+}[c]));
+}
+
+function list(){
+if(!rows.length){
+$('list').innerHTML='<p class="small">Hozircha saqlangan murojaatlar yo‘q.</p>';
+return;
+}
+
+$('list').innerHTML=rows.map(x=>`
+<div class="item">
+<b>${safe(x.type)} — ${safe(x.place)}</b>
+<p class="small">${safe(x.date)} · ${safe(x.level)} · ${x.score}/20</p>
+<label>Holati</label>
+<select class="status" data-id="${x.id}">
+<option ${x.status==='Yangi'?'selected':''}>Yangi</option>
+<option ${x.status==='Ko‘rib chiqilmoqda'?'selected':''}>Ko‘rib chiqilmoqda</option>
+<option ${x.status==='Hal qilindi'?'selected':''}>Hal qilindi</option>
+</select>
+<button class="btn light copyone" data-id="${x.id}" style="margin-top:8px">
+Matnni nusxalash
+</button>
+</div>`).join('');
+
+document.querySelectorAll('.status').forEach(s=>{
+s.onchange=()=>{
+let r=rows.find(x=>x.id==s.dataset.id);
+r.status=s.value;
+localStorage.setItem(KEY,JSON.stringify(rows));
+stats();
+};
+});
+
+document.querySelectorAll('.copyone').forEach(b=>{
+b.onclick=()=>{
+let r=rows.find(x=>x.id==b.dataset.id);
+prompt('Murojaat matni:',report(r));
+};
+});
+}
+
+document.querySelectorAll('nav button').forEach(b=>{
+b.onclick=()=>{
+document.querySelectorAll('nav button').forEach(q=>
+q.classList.toggle('active',q===b));
+['assess','registry','about'].forEach(id=>
+$(id).classList.toggle('hidden',id!==b.dataset.tab));
+};
+});
+
+$('export').onclick=()=>{
+if(!rows.length){
+alert('Eksport uchun ma’lumot yo‘q');
+return;
+}
+let keys=['date','type','place','people','score','level','status','details'];
+let csv=[keys.join(';'),...rows.map(r=>
+keys.map(k=>'"'+String(r[k]??'').replace(/"/g,'""')+'"').join(';')
+)].join('\n');
+
+let a=document.createElement('a');
+a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],
+{type:'text/csv;charset=utf-8'}));
+a.download='ecoprioritet_murojaatlar.csv';
+a.click();
+URL.revokeObjectURL(a.href);
+};
+
+$('clear').onclick=()=>{
+if(confirm('Barcha yozuvlar o‘chirilsinmi?')){
+rows=[];
+localStorage.removeItem(KEY);
+stats();
+}
+};
+
+stats();
+</script>
+</body>
+</html>
